@@ -62,10 +62,10 @@
       .then(response => {
         if (response.ok) {
           const status = document.getElementById("status");
-          status.innerText = "thanks.";
+          status.innerText = "❤️‍🩹 sorry we are not available here yet.";
           status.style.color = "#16a34a";
         } else {
-          showError("❤️‍🩹 sorry we are not available here yet.");
+          showError("network error.");
         }
       })
       .catch(() => {
